@@ -3,6 +3,7 @@ package simulacion;
 import movimientos.Movimiento;
 import movimientos.MovimientoAdelante;
 import movimientos.MovimientoDerecha;
+import movimientos.MovimientoEsperar;
 import movimientos.MovimientoIzquierda;
 import ocupantes.Participante;
 import tablero.Tablero;
@@ -42,8 +43,16 @@ public class Simulacion {
 		// Movimientos de participante Norte 1
 		new MovimientoAdelante(participanteNorte1);
 		new MovimientoAdelante(participanteNorte1);
+		new MovimientoEsperar(participanteNorte1);
 		new MovimientoDerecha(participanteNorte1);
-		
+		new MovimientoIzquierda(participanteNorte1);
+		new MovimientoIzquierda(participanteNorte1);
+		new MovimientoAdelante(participanteNorte1);
+		new MovimientoAdelante(participanteNorte1);
+		new MovimientoIzquierda(participanteNorte1);
+		new MovimientoIzquierda(participanteNorte1);
+		new MovimientoIzquierda(participanteNorte1);
+		new MovimientoIzquierda(participanteNorte1);
 		
 		participanteSur1.start();
 		participanteSur2.start();

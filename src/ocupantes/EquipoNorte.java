@@ -34,6 +34,16 @@ public class EquipoNorte extends Equipo {
 	public int posEnYAdelante(Celda celda) {
 		return celda.getCoord().getY() - 1;
 	}
+
+	@Override
+	public int posEnXAtras(Celda celda) {
+		return celda.getCoord().getX();
+	}
+
+	@Override
+	public int posEnYAtras(Celda celda) {
+		return celda.getCoord().getY() + 1;
+	}
 	
 	@Override
 	public String formatoDeParticipante() {
@@ -49,4 +59,10 @@ public class EquipoNorte extends Equipo {
 	public Equipo equipoEnemigo() {
 		return Tablero.getTablero().getEquipoSur();
 	}
+
+	@Override
+	public boolean soyNorte() {
+		return true;
+	}
+
 }

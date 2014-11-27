@@ -52,13 +52,13 @@ public class Celda {
 //	public void ocuparCasilleroAdelante(Ocupante ocupante) {
 //		lock.lock();
 //		
-//		while(!this.estaLibre && !hayParticipantesEnLindantes()) {
-//			try {
-//				this.puedeMoverAdelante.await();
-//			} catch (InterruptedException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
+//		while(!this.estaLibre && !hayParticipantesEnLindantes(ocupante)) {
+////			try {
+////				this.puedeMoverAdelante.await();
+////			} catch (InterruptedException e) {
+////				// TODO Auto-generated catch block
+////				e.printStackTrace();
+////			}
 //			
 //			try {
 //				this.ocupado.await();
@@ -69,6 +69,8 @@ public class Celda {
 //		}
 //		
 //		this.ocupante = ocupante;
+//		this.estaLibre = false;
+//		ocupante.setCeldaActual(this);
 //		
 //		lock.unlock();
 //	}
@@ -98,18 +100,54 @@ public class Celda {
 		
 		this.estaLibre = true;
 
-		this.ocupado.signal();
+//		this.ocupado.signal();
+		this.ocupado.signalAll();
 		
 //		this.puedeMoverAdelante.signalAll();
 		
 		lock.unlock();
 	}
 	
-//	public boolean hayParticipantesEnLindantes() {
-//		return this.hayParticipanteAtras() ||
-//				this.hayParticipanteIzquierda() ||
-//				this.hayParticipanteDerecha();
-//	}
+	public boolean hayParticipantesEnLindantes(Ocupante ocupante) {
+		return this.hayParticipanteAtras(ocupante) ||
+				this.hayParticipanteIzquierda(ocupante) ||
+				this.hayParticipanteDerecha(ocupante);
+	}
+	
+	public boolean hayParticipanteAtras(Ocupante ocupante) {
+		Participante participante = (Participante) ocupante;
+		Celda celda = participante.getEquipo().celdaAAtras(this);
+		if(celda != null) {
+			return celda.tieneParticipanteMio(participante);
+		} else {
+			return false;
+		}
+		
+	}
+	
+	public boolean hayParticipanteIzquierda(Ocupante ocupante) {
+		Participante participante = (Participante) ocupante;
+		Celda celda = participante.getEquipo().celdaAIzq(this);
+		if(celda != null) {
+			return celda.tieneParticipanteMio(participante);
+		} else {
+			return false;
+		}
+	}
+	
+	public boolean hayParticipanteDerecha(Ocupante ocupante) {
+		Participante participante = (Participante) ocupante;
+		Celda celda = participante.getEquipo().celdaADer(this);
+		if(celda != null) {
+			return celda.tieneParticipanteMio(participante);
+		} else {
+			return false;
+		}
+	}
+	
+	public boolean tieneParticipanteMio(Participante participante) {
+		return this.ocupante != null && this.ocupante.esParticipanteDeMiEquipo(participante);
+	}
 	
 	public boolean hayTesoroMio(Participante participante) {
 		return this.ocupante != null && this.ocupante.esTesoroDeMiEquipo(participante);

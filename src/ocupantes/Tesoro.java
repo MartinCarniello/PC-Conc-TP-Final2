@@ -34,4 +34,9 @@ public class Tesoro implements Ocupante {
 		return participante.getEquipo().equipoEnemigo().esTesoroDelEquipo(this);
 	}
 
+	@Override
+	public boolean esParticipanteDeMiEquipo(Participante participante) {
+		return false;
+	}
+
 }

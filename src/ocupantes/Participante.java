@@ -76,5 +76,13 @@ public class Participante extends Thread implements Ocupante {
 	public String formatoDeOcupante() {
 		return this.equipo.formatoDeParticipante();
 	}
+	
+	public boolean soyNorte() {
+		return this.getEquipo().soyNorte();
+	}
 
+	@Override
+	public boolean esParticipanteDeMiEquipo(Participante participante) {
+		return this.soyNorte() == participante.soyNorte() ;
+	}
 }
