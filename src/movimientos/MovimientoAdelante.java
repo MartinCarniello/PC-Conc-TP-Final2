@@ -11,12 +11,11 @@ public class MovimientoAdelante extends Movimiento {
 
 	public Celda celdaAMoverse() {		
 		return this.getParticipante().getEquipo().celdaAdelante(
-				this.getParticipante().getTablero(),
 				this.getParticipante().getCeldaActual());
 	}
 	
 	public void ocuparCasilleroCorrecto(Celda celda) {
-		celda.ocuparCasilleroAdelante(this.getParticipante());
+		celda.ocuparCasillero(this.getParticipante());
 	}
 	
 }

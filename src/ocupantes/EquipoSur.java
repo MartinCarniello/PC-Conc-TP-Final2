@@ -1,6 +1,7 @@
 package ocupantes;
 
 import tablero.Celda;
+import tablero.Tablero;
 
 public class EquipoSur extends Equipo {
 
@@ -32,5 +33,20 @@ public class EquipoSur extends Equipo {
 	@Override
 	public int posEnYAdelante(Celda celda) {
 		return celda.getCoord().getY() + 1;
+	}
+	
+	@Override
+	public String formatoDeParticipante() {
+		return "|_S|";
+	}
+	
+	@Override
+	public void decrementarTesoros() {
+		Tablero.getTablero().decrementarTesorosSur();
+	}
+	
+	@Override
+	public Equipo equipoEnemigo() {
+		return Tablero.getTablero().getEquipoNorte();
 	}
 }

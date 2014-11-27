@@ -12,12 +12,11 @@ public class MovimientoIzquierda extends Movimiento {
 	@Override
 	public Celda celdaAMoverse() {
 		return this.getParticipante().getEquipo().celdaAIzq(
-				this.getParticipante().getTablero(),
 				this.getParticipante().getCeldaActual());
 	}
 	
 	public void ocuparCasilleroCorrecto(Celda celda) {
-		celda.ocuparCasilleroLateral(this.getParticipante());
+		celda.ocuparCasillero(this.getParticipante());
 	}
 
 }
