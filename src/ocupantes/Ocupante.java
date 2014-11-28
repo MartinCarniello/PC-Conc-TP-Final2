@@ -9,7 +9,9 @@ public interface Ocupante {
 	
 	public boolean esTesoroEnemigo(Participante participante);
 	
-	public String formatoDeOcupante();
+	public Celda getCeldaActual();
 	
 	public void setCeldaActual(Celda celda);
+	
+	public String formatoDeOcupante();
 }

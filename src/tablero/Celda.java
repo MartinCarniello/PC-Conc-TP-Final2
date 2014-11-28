@@ -11,7 +11,6 @@ public class Celda {
 	
 	private Lock lock = new ReentrantLock();
 	private Condition ocupado = lock.newCondition();
-	private Condition puedeMoverAdelante = lock.newCondition();
 	private Coordenada coord;
 	private boolean estaLibre;
 	private Ocupante ocupante;
@@ -49,33 +48,26 @@ public class Celda {
 		return this.coord.esBorde();
 	}
 	
-//	public void ocuparCasilleroAdelante(Ocupante ocupante) {
-//		lock.lock();
-//		
-//		while(!this.estaLibre && !hayParticipantesEnLindantes(ocupante)) {
-////			try {
-////				this.puedeMoverAdelante.await();
-////			} catch (InterruptedException e) {
-////				// TODO Auto-generated catch block
-////				e.printStackTrace();
-////			}
-//			
-//			try {
-//				this.ocupado.await();
-//			} catch (InterruptedException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//		}
-//		
-//		this.ocupante = ocupante;
-//		this.estaLibre = false;
-//		ocupante.setCeldaActual(this);
-//		
-//		lock.unlock();
-//	}
+	public void ocuparCasilleroAdelante(Ocupante ocupante) {
+		lock.lock();
+		
+		while(!this.estaLibre || !hayParticipantesEnLindantes(ocupante)) {
+			
+			try {
+				this.ocupado.await();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		this.ocupante = ocupante;
+		this.estaLibre = false;
+		ocupante.setCeldaActual(this);
+		
+		lock.unlock();
+	}
 
-	public void ocuparCasillero(Ocupante ocupante){
+	public void ocuparCasilleroLateral(Ocupante ocupante){
 		lock.lock();
 		
 		while(!this.estaLibre)
@@ -97,13 +89,8 @@ public class Celda {
 		lock.lock();
 		
 		this.ocupante = null;
-		
 		this.estaLibre = true;
-
-//		this.ocupado.signal();
 		this.ocupado.signalAll();
-		
-//		this.puedeMoverAdelante.signalAll();
 		
 		lock.unlock();
 	}
@@ -116,7 +103,7 @@ public class Celda {
 	
 	public boolean hayParticipanteAtras(Ocupante ocupante) {
 		Participante participante = (Participante) ocupante;
-		Celda celda = participante.getEquipo().celdaAAtras(this);
+		Celda celda = participante.getEquipo().celdaAAtras(ocupante.getCeldaActual());
 		if(celda != null) {
 			return celda.tieneParticipanteMio(participante);
 		} else {
@@ -127,7 +114,7 @@ public class Celda {
 	
 	public boolean hayParticipanteIzquierda(Ocupante ocupante) {
 		Participante participante = (Participante) ocupante;
-		Celda celda = participante.getEquipo().celdaAIzq(this);
+		Celda celda = participante.getEquipo().celdaAIzq(ocupante.getCeldaActual());
 		if(celda != null) {
 			return celda.tieneParticipanteMio(participante);
 		} else {
@@ -137,7 +124,7 @@ public class Celda {
 	
 	public boolean hayParticipanteDerecha(Ocupante ocupante) {
 		Participante participante = (Participante) ocupante;
-		Celda celda = participante.getEquipo().celdaADer(this);
+		Celda celda = participante.getEquipo().celdaADer(ocupante.getCeldaActual());
 		if(celda != null) {
 			return celda.tieneParticipanteMio(participante);
 		} else {

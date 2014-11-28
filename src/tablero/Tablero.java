@@ -2,15 +2,13 @@ package tablero;
 
 import java.util.Hashtable;
 
-import ocupantes.Equipo;
 import ocupantes.EquipoNorte;
 import ocupantes.EquipoSur;
-import ocupantes.Participante;
 import ocupantes.Tesoro;
 
 public class Tablero {
 
-	private int dimension = DimensionTablero.TAMANIO;
+	private int dimension;
 	private Hashtable<String, Celda> tablero;
 	private EquipoNorte equipoNorte;
 	private EquipoSur equipoSur;
@@ -26,8 +24,14 @@ public class Tablero {
 		return instance.equipoSur;
 	}
 	
-	public static Tablero init(int cantParticipantes, int cantTesoros) {
+	public int getDimension() {
+		return this.dimension;
+	}
+	
+	public static Tablero init(int dimension, int cantParticipantes, int cantTesoros) {
 		instance = new Tablero();
+		
+		instance.dimension = dimension;
 		
 		instance.tablero = new Hashtable<String, Celda>();
 		
@@ -46,8 +50,6 @@ public class Tablero {
 		instance.tesorosSur = cantTesoros;
 		
 		instance.generarTesoros(cantTesoros);
-		
-//		instance.generarParticipantes(cantParticipantes);
 		
 		return instance;
 	}
@@ -93,25 +95,13 @@ public class Tablero {
 		}		
 	}
 	
-//	public void generarParticipantes(int cantParticipantes) {
-//		int x = 0;
-//		int y = 0;
-//		
-//		for(int i = 0; i < cantParticipantes; i++) {
-//			Celda celda = new Celda(new Coordenada(x, y));
-//			new Participante(celda).start();
-//			x++;
-//		}
-//		
-//		x = 0;
-//		y = this.dimension - 1;
-//		
-//		for(int i = 0; i < cantParticipantes; i++) {
-//			Celda celda = this.buscarCelda(x, y);
-//			new Participante(celda).start();
-//			x++;
-//		}
-//	}
+	public void decrementarTesorosSur() {
+		this.tesorosSur -= 1;
+	}
+	
+	public void decrementarTesorosNorte() {
+		this.tesorosNorte -= 1;
+	}
 	
 	public boolean terminoElJuego() {
 		return this.tesorosNorte == 0 || this.tesorosSur == 0;
@@ -129,13 +119,5 @@ public class Tablero {
 		}
 		
 		System.out.println("");
-	}
-	
-	public void decrementarTesorosSur() {
-		this.tesorosSur -= 1;
-	}
-	
-	public void decrementarTesorosNorte() {
-		this.tesorosNorte -= 1;
 	}
 }

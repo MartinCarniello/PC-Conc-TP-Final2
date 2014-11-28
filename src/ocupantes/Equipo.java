@@ -21,6 +21,30 @@ public abstract class Equipo {
 	public void agregarTesoro(Tesoro tesoro) {
 		this.tesoros.add(tesoro);
 	}
+
+	public abstract int posEnXIzq(Celda celda);
+	
+	public abstract int posEnYIzq(Celda celda);
+	
+	public abstract int posEnYDer(Celda celda);
+	
+	public abstract int posEnXDer(Celda celda);
+	
+	public abstract int posEnXAdelante(Celda celda);
+	
+	public abstract int posEnYAdelante(Celda celda);
+	
+	public abstract int posEnXAtras(Celda celda);
+	
+	public abstract int posEnYAtras(Celda celda);
+	
+	public abstract void decrementarTesoros();
+	
+	public abstract Equipo equipoEnemigo();
+	
+	public abstract boolean soyNorte();
+
+	public abstract String formatoDeParticipante();
 	
 	public Celda celdaAIzq(Celda celda) {
 		return Tablero.getTablero().buscarCelda(this.posEnXIzq(celda), this.posEnYIzq(celda));
@@ -38,33 +62,8 @@ public abstract class Equipo {
 		return Tablero.getTablero().buscarCelda(this.posEnXAtras(celda), this.posEnYAtras(celda));
 	}
 	
-	public abstract int posEnXIzq(Celda celda);
-	
-	public abstract int posEnYIzq(Celda celda);
-	
-	public abstract int posEnYDer(Celda celda);
-	
-	public abstract int posEnXDer(Celda celda);
-	
-	public abstract int posEnXAdelante(Celda celda);
-	
-	public abstract int posEnYAdelante(Celda celda);
-	
-	public abstract int posEnXAtras(Celda celda);
-	
-	public abstract int posEnYAtras(Celda celda);
-	
-	public abstract String formatoDeParticipante();
-	
-	public abstract void decrementarTesoros();
-	
-	public abstract Equipo equipoEnemigo();
-	
-	public abstract boolean soyNorte();
-	
 	public void quitarTesoro(Tesoro tesoro) {
 		this.getTesoros().remove(tesoro);
-		
 		this.decrementarTesoros();
 	}
 

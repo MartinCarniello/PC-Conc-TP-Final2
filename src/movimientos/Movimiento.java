@@ -16,6 +16,12 @@ public abstract class Movimiento {
 		this.participante = participante;
 		participante.agregarMovimiento(this);
 	}
+
+	public abstract Celda celdaAMoverse();
+	
+	public abstract void ocuparCasilleroCorrecto(Celda celda);
+	
+	public abstract void liberarCasilleroCorrecto(Celda celda);
 	
 	public void mover() {
 		Celda celdaAnterior = this.getParticipante().getCeldaActual();
@@ -41,7 +47,7 @@ public abstract class Movimiento {
 				this.ocuparCasilleroCorrecto(celdaAMoverse);
 			}
 			
-			celdaAnterior.liberarCasillero();
+			this.liberarCasilleroCorrecto(celdaAnterior);
 			
 		}
 		
@@ -52,7 +58,4 @@ public abstract class Movimiento {
 		
 	}
 	
-	public abstract Celda celdaAMoverse();
-	
-	public abstract void ocuparCasilleroCorrecto(Celda celda);
 }

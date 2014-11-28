@@ -33,7 +33,7 @@ public class Coordenada {
 	
 	public boolean esBorde() {
 		return (this.x == 0 || this.y == 0) ||
-				(this.x == DimensionTablero.TAMANIO - 1 || 
-				this.y == DimensionTablero.TAMANIO - 1);
+				(this.x == Tablero.getTablero().getDimension() - 1 || 
+				this.y == Tablero.getTablero().getDimension() - 1);
 	}
 }

@@ -11,8 +11,14 @@ public class Tesoro implements Ocupante {
 		return this.celda;
 	}
 	
+	@Override
 	public void setCeldaActual(Celda celda) {
 		this.celda = celda;
+	}
+	
+	@Override
+	public Celda getCeldaActual() {
+		return this.celda;
 	}
 	
 	public Tesoro(Celda celda) {
@@ -25,11 +31,6 @@ public class Tesoro implements Ocupante {
 	}
 	
 	@Override
-	public String formatoDeOcupante() {
-		return "|_T|";
-	}
-
-	@Override
 	public boolean esTesoroEnemigo(Participante participante) {
 		return participante.getEquipo().equipoEnemigo().esTesoroDelEquipo(this);
 	}
@@ -37,6 +38,11 @@ public class Tesoro implements Ocupante {
 	@Override
 	public boolean esParticipanteDeMiEquipo(Participante participante) {
 		return false;
+	}
+
+	@Override
+	public String formatoDeOcupante() {
+		return "|_T|";
 	}
 
 }

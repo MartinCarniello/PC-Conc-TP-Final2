@@ -4,9 +4,12 @@ import ocupantes.Participante;
 import tablero.Celda;
 
 public class MovimientoEsperar extends Movimiento {
+	
+	private long tiempoDeEspera;
 
-	public MovimientoEsperar(Participante participante) {
+	public MovimientoEsperar(Participante participante, long espera) {
 		super(participante);
+		this.tiempoDeEspera = espera;
 	}
 
 	public Celda celdaAMoverse() {
@@ -20,5 +23,10 @@ public class MovimientoEsperar extends Movimiento {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public void liberarCasilleroCorrecto(Celda celda) {
+		// No libera ninguna celda
 	}
 }

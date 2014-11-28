@@ -16,7 +16,12 @@ public class MovimientoIzquierda extends Movimiento {
 	}
 	
 	public void ocuparCasilleroCorrecto(Celda celda) {
-		celda.ocuparCasillero(this.getParticipante());
+		celda.ocuparCasilleroLateral(this.getParticipante());
+	}
+
+	@Override
+	public void liberarCasilleroCorrecto(Celda celda) {
+		celda.liberarCasillero();
 	}
 
 }

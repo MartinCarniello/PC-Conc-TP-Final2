@@ -46,11 +46,6 @@ public class EquipoNorte extends Equipo {
 	}
 	
 	@Override
-	public String formatoDeParticipante() {
-		return "|_N|";
-	}
-
-	@Override
 	public void decrementarTesoros() {
 		Tablero.getTablero().decrementarTesorosNorte();
 	}
@@ -65,4 +60,8 @@ public class EquipoNorte extends Equipo {
 		return true;
 	}
 
+	@Override
+	public String formatoDeParticipante() {
+		return "|_N|";
+	}
 }

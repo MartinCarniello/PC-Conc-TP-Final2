@@ -15,7 +15,12 @@ public class MovimientoAdelante extends Movimiento {
 	}
 	
 	public void ocuparCasilleroCorrecto(Celda celda) {
-		celda.ocuparCasillero(this.getParticipante());
+		celda.ocuparCasilleroAdelante(this.getParticipante());
+	}
+
+	@Override
+	public void liberarCasilleroCorrecto(Celda celda) {
+		celda.liberarCasillero();
 	}
 	
 }
