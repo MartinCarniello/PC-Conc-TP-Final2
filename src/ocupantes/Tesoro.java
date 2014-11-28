@@ -25,11 +25,19 @@ public class Tesoro implements Ocupante {
 		this.celda = celda;
 	}
 
+	/**
+	 * Devuelve true si el tesoro es del equipo del participante
+	 * pasado por parametro
+	 */
 	@Override
 	public boolean esTesoroDeMiEquipo(Participante participante) {
 		return participante.getEquipo().esTesoroDelEquipo(this);
 	}
 	
+	/**
+	 * Devuelve true si el tesoro es del equipo contrario al del
+	 * participante pasado por parametro
+	 */
 	@Override
 	public boolean esTesoroEnemigo(Participante participante) {
 		return participante.getEquipo().equipoEnemigo().esTesoroDelEquipo(this);

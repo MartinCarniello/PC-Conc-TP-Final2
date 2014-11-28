@@ -33,6 +33,12 @@ public class Participante extends Thread implements Ocupante {
 		this.celdaActual = celda;
 	}
 	
+	/**
+	 * Setea el equipo correcto.
+	 * Si el participante esta en la zona Norte, le setea el equipo Norte.
+	 * Si el participante esta en la zona Sur, le setea el equipo Sur.
+	 * @param celda
+	 */
 	public void setEquipo(Celda celda) {
 		if(celda.getCoord().getY() <= (Tablero.getTablero().getDimension() / 2)) {
 			this.equipo = Tablero.getTablero().getEquipoSur();
@@ -83,11 +89,21 @@ public class Participante extends Thread implements Ocupante {
 		return this.equipo.formatoDeParticipante();
 	}
 
+	/**
+	 * Devuelve si el participante pasado por parametro es del mismo equipo
+	 * que el participante receptor del mensaje.
+	 */
 	@Override
 	public boolean esParticipanteDeMiEquipo(Participante participante) {
 		return this.soyNorte() == participante.soyNorte() ;
 	}
 
+	/**
+	 * Se hace un ciclo infinito, genera un numero random del 0 al 3
+	 * para elegir un movimiento de los 4 que hay.
+	 * Se duerme un tiempo simulando el turno y 
+	 * delega el mover al movimiento elegido.
+	 */
 	public void run() {
 		while(true) {
 			int indiceMovimiento = (int) (Math.random() * 4);

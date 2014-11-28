@@ -28,6 +28,13 @@ public class Tablero {
 		return this.dimension;
 	}
 	
+	/**
+	 * Se crea una instancia del tablero como un singleton y
+	 * se guarda en una variable de instancia.	
+	 * @param dimension
+	 * @param cantParticipantes
+	 * @param cantTesoros
+	 */
 	public static Tablero init(int dimension, int cantParticipantes, int cantTesoros) {
 		instance = new Tablero();
 		
@@ -54,15 +61,31 @@ public class Tablero {
 		return instance;
 	}
 	
-	// Precondicion: Se tuvo que haber llamado al metodo "init()"
+	/**
+	 * Devuelve la instancia unica del tablero
+	 * Precondicion: Se tuvo que haber llamado al metodo "init()"
+	 * @return
+	 */
 	public static Tablero getTablero() {
 		return instance;
 	}
 	
+	/**
+	 * Devuelve un String armado con los enteros pasados por parametro.
+	 * @param x
+	 * @param y
+	 */
 	public String convertirCoordenada(int x, int y) {
 		return Integer.toString(x).concat(".").concat(Integer.toString(y));
 	}
 	
+	/**
+	 * Busca una celda con los enteros pasados por parametro.
+	 * Si "x" o "y" son menores a cero o mayores al tamanio
+	 * del tablero, devuelve null.
+	 * @param x
+	 * @param y
+	 */
 	public Celda buscarCelda(int x, int y) {
 		if((x < 0 || x >= this.dimension) || (y < 0 || y >= this.dimension)) {
 			return null;
@@ -71,6 +94,10 @@ public class Tablero {
 		}
 	}
 	
+	/**
+	 * Genera tesoros NO aleatorios.
+	 * @param cantTesoros
+	 */
 	public void generarTesoros(int cantTesoros) {
 		int x = 2;
 		int y = 2;
@@ -95,18 +122,33 @@ public class Tablero {
 		}		
 	}
 	
+	/**
+	 * Decrementa en uno los tesoros del equipo Sur.
+	 */
 	public void decrementarTesorosSur() {
 		this.tesorosSur -= 1;
 	}
 	
+	/**
+	 * Decrementa en uno los tesoros del equipo Norte.
+	 */
 	public void decrementarTesorosNorte() {
 		this.tesorosNorte -= 1;
 	}
 	
+	/**
+	 * Si los tesoros del equipo Norte o los del equipo
+	 * Sur son cero, devuelve true.
+	 * @return
+	 */
 	public boolean terminoElJuego() {
 		return this.tesorosNorte == 0 || this.tesorosSur == 0;
 	}
 	
+	/**
+	 * Imprime el tablero con sus celdas, participantes
+	 * y tesoros.
+	 */
 	public void imprimirTablero() {
 		for(int y = instance.dimension - 1; y >= 0 ; y--) {
 			String fila = "";

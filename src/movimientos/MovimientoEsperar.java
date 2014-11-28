@@ -16,6 +16,10 @@ public class MovimientoEsperar extends Movimiento {
 		return 	this.getParticipante().getCeldaActual();
 	}
 	
+	/**
+	 * El ocupar casillero no hace nada, ya que no se mueve.
+	 * Se queda esperando en el lugar.
+	 */
 	public void ocuparCasilleroCorrecto(Celda celda) {
 		try {
 			Thread.sleep(5000);
@@ -25,6 +29,9 @@ public class MovimientoEsperar extends Movimiento {
 		}
 	}
 
+	/**
+	 * El liberar casillero no hace nada, ya que no se mueve.
+	 */
 	@Override
 	public void liberarCasilleroCorrecto(Celda celda) {
 		// No libera ninguna celda

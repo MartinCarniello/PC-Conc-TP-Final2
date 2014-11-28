@@ -23,6 +23,12 @@ public abstract class Movimiento {
 	
 	public abstract void liberarCasilleroCorrecto(Celda celda);
 	
+	/**
+	 * Chequea si hay una celda donde se quiere mover, si no termino el juego,
+	 * y si no hay tesoro de su equipo. Si es asi, se mueve dependiendo
+	 * el movimiento que sea. Si hay tesoro enemigo, lo atrapa.
+	 * Al final libera el casillero anterior y chequea si se termino el juego.
+	 */
 	public void mover() {
 		Celda celdaAnterior = this.getParticipante().getCeldaActual();
 		Celda celdaAMoverse = this.celdaAMoverse();
@@ -32,7 +38,6 @@ public abstract class Movimiento {
 
 		if(celdaAMoverse != null &&
 		   !celdaAMoverse.hayTesoroMio(this.getParticipante()) && 
-		   //!celdaAMoverse.esBorde() &&
 		   !Tablero.getTablero().terminoElJuego()) {
 			
 			// Chequear si hay tesoro enemigo,

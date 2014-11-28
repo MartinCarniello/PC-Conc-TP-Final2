@@ -48,6 +48,16 @@ public class Celda {
 		return this.coord.esBorde();
 	}
 	
+	/**
+	 * Ocupa el casillero de adelante.
+	 * Primero chequea que este libre y que haya algun participante
+	 * a los costados o atras de la celda actual del participante.
+	 * Si no se cumple alguna de estas condiciones, manda a dormir al thread.
+	 * Cuando se levanta vuelve a chequear y si devuelve false, 
+	 * setea al ocupante con el pasado por parametro, y cambia el estado
+	 * de libre a false
+	 * @param ocupante
+	 */
 	public void ocuparCasilleroAdelante(Ocupante ocupante) {
 		lock.lock();
 		
@@ -67,6 +77,14 @@ public class Celda {
 		lock.unlock();
 	}
 
+	/** Ocupa el casillero del costado.
+	 * Primero chequea que este libre.
+	 * Si no se cumple esta condicion, manda a dormir al thread.
+	 * Cuando se levanta vuelve a chequear y si devuelve false, 
+	 * setea al ocupante con el pasado por parametro, y cambia el estado
+	 * de libre a false
+	 * @param ocupante
+	 */
 	public void ocuparCasilleroLateral(Ocupante ocupante){
 		lock.lock();
 		
@@ -85,6 +103,12 @@ public class Celda {
 		lock.unlock();
 	}
 
+	/**
+	 * Libera la celda, es decir setea al ocupante con null,
+	 * y vuelve a setear el estado de libre a true.
+	 * Al final hace un signalAll para despertar a todos los threads
+	 * para que puedan chequear sus condiciones y moverse o no.
+	 */
 	public void liberarCasillero(){
 		lock.lock();
 		
@@ -95,6 +119,11 @@ public class Celda {
 		lock.unlock();
 	}
 	
+	/**
+	 * Devuelve true si hay un participante en alguna de las celdas
+	 * laterales o traseras de la celda actual del ocupante.
+	 * @param ocupante
+	 */
 	public boolean hayParticipantesEnLindantes(Ocupante ocupante) {
 		return this.hayParticipanteAtras(ocupante) ||
 				this.hayParticipanteIzquierda(ocupante) ||
@@ -132,14 +161,29 @@ public class Celda {
 		}
 	}
 	
+	/**
+	 * Devuelve true si hay un participante del mismo equipo
+	 * del participante pasado por parametro en la celda
+	 * @param participante
+	 */
 	public boolean tieneParticipanteMio(Participante participante) {
 		return this.ocupante != null && this.ocupante.esParticipanteDeMiEquipo(participante);
 	}
 	
+	/**
+	 * Devuelve true si hay un tesoro del mismo equipo
+	 * del participante pasado por parametro en la celda
+	 * @param participante
+	 */
 	public boolean hayTesoroMio(Participante participante) {
 		return this.ocupante != null && this.ocupante.esTesoroDeMiEquipo(participante);
 	}
 	
+	/**
+	 * Devuelve true si hay un tesoro del equipo enemigo
+	 * del participante pasado por parametro en la celda
+	 * @param participante
+	 */
 	public boolean hayTesoroEnemigo(Participante participante) {
 		return this.ocupante != null && this.ocupante.esTesoroEnemigo(participante);
 	}
